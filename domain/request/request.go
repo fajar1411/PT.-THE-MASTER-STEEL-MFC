@@ -15,3 +15,9 @@ type RequestEmployee struct {
 	Nip      string `json:"nip" form:"nip" validate:"required,min=5"`
 	Division string `json:"division" form:"division" validate:"required,min=3"`
 }
+type RequestSalary struct {
+	Id         int
+	Gaji       float64 `json:"gaji" form:"gaji" validate:"required"`
+	IDEmployee uint
+	Total_Gaji int
+}

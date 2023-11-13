@@ -1,7 +1,9 @@
 package repoemployee
 
 import (
+	"errors"
 	"master/domain/contract/repocontract"
+	"master/domain/model"
 	"master/domain/query"
 	"master/domain/request"
 
@@ -43,34 +45,19 @@ func (*Repoemployee) EmailExist(email string) (data request.RequestEmployee, err
 	panic("unimplemented")
 }
 
-// func (ru *RepoUser) RegisterUser(newRequest request.RequestUser) (data request.RequestUser, err error) {
-// 	datareqtomodeluser := query.RequuserToModel(newRequest)
+// NipExist implements repocontract.RepoEmployee.
+func (re *Repoemployee) NipExist(nip string) (data request.RequestEmployee, err error) {
+	var activ model.Employee
 
-// 	_, errexist := ru.EmaiuserExist(datareqtomodeluser.Email)
+	tx := re.db.Raw("Select employees.id, employees.password, employees.email, employees.nama,employees.nip,employees.role,employees.division from employees WHERE employees.nip= ? ", nip).First(&activ)
 
-// 	if errexist == nil {
-// 		return request.RequestUser{}, errors.New("Email Sudah Terdaftar")
-// 	}
-// 	tx := ru.db.Create(&datareqtomodeluser)
+	if errors.Is(tx.Error, gorm.ErrRecordNotFound) {
 
-// 	if tx.Error != nil {
-// 		return request.RequestUser{}, tx.Error
-// 	}
-
-// 	datamodeltoreq := query.ModelusertoReq(&datareqtomodeluser)
-
-// 	return datamodeltoreq, nil
-// }
-
-// func (ru *RepoUser) AllUser() (data []request.RequestUser, err error) {
-// 	var activ []model.User
-// 	tx := ru.db.Raw("Select users.id, users.password, users.email,users.nama from users").Find(&activ)
-// 	if tx.Error != nil {
-// 		return data, tx.Error
-// 	}
-// 	dtmdlttoreq := query.ListModeluserToReq(activ)
-// 	return dtmdlttoreq, nil
-// }
+		return request.RequestEmployee{}, tx.Error
+	}
+	var activcore = query.ModelempToreq(&activ)
+	return activcore, nil
+}
 
 // func (ru *RepoUser) EmaiuserExist(email string) (data request.RequestUser, err error) {
 // 	var activ model.User

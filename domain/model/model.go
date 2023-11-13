@@ -19,3 +19,9 @@ type Employee struct {
 	Role     string
 	Division string
 }
+type Salary struct {
+	gorm.Model
+	Gaji       float64
+	IDEmployee uint
+	Total_Gaji int
+}

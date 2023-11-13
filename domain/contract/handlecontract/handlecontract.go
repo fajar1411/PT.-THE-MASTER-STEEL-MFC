@@ -18,3 +18,6 @@ type HandleLogin interface {
 type HandleEmployee interface {
 	AddEmployee(e echo.Context) error
 }
+type HandleSalary interface {
+	AddSalary(e echo.Context) error
+}
