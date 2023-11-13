@@ -14,6 +14,10 @@ import (
 	re "master/internal/repo/repoemployee"
 	es "master/internal/service/employservice"
 
+	sh "master/internal/handler/salaryhandler"
+	rs "master/internal/repo/reposalary"
+	ss "master/internal/service/Salaryservice"
+
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
@@ -42,5 +46,11 @@ func FaktoryAndRoute(e *echo.Echo, db *gorm.DB) {
 	emphandle := eh.NewHandleemployee(empservice)
 	empgrup := e.Group("/employee")
 	empgrup.POST("/add", emphandle.AddEmployee)
+
+	rps := rs.NewRepoSalary(db)
+	salservice := ss.NewServiceSalary(rps, rpe)
+	salhandle := sh.NewHandleSalary(salservice)
+	salgrup := e.Group("/salary")
+	salgrup.POST("/add", salhandle.AddSalary, middlewares.JWTMiddleware())
 
 }

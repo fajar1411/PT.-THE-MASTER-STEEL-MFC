@@ -97,3 +97,25 @@ func RequesempToModel(data request.RequestEmployee) model.Employee {
 		Division: data.Division,
 	}
 }
+func ReqsalarytoRespon(data request.RequestSalary) respon.ResponSalary {
+	return respon.ResponSalary{
+		Id:         data.Id,
+		Gaji:       data.Gaji,
+		IDEmployee: data.IDEmployee,
+		Total_Gaji: data.Total_Gaji,
+	}
+}
+func MdelsalarytoReq(data model.Salary) request.RequestSalary {
+	return request.RequestSalary{
+		Gaji:       data.Gaji,
+		IDEmployee: data.IDEmployee,
+		Total_Gaji: data.Total_Gaji,
+	}
+}
+func Reqtomodel(data request.RequestSalary) model.Salary {
+	return model.Salary{
+		Gaji:       data.Gaji,
+		IDEmployee: data.IDEmployee,
+		Total_Gaji: data.Total_Gaji,
+	}
+}
