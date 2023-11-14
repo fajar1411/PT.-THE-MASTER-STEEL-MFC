@@ -44,3 +44,13 @@ func (se *ServicesEmployee) AddEmployee(newRequest request.RequestEmployee) (dat
 
 	return datarepo, nil
 }
+
+// GetSalary implements servicecontract.ServiceEmployee.
+func (se *ServicesEmployee) GetSalary(id int) (data request.RequestSalary, err error) {
+	data, err = se.re.GetSalary(id)
+
+	if err != nil {
+		return data, err
+	}
+	return data, nil
+}

@@ -46,6 +46,7 @@ func FaktoryAndRoute(e *echo.Echo, db *gorm.DB) {
 	emphandle := eh.NewHandleemployee(empservice)
 	empgrup := e.Group("/employee")
 	empgrup.POST("/add", emphandle.AddEmployee)
+	empgrup.GET("/ceksalary", emphandle.GetSalary, middlewares.JWTMiddleware())
 
 	rps := rs.NewRepoSalary(db)
 	salservice := ss.NewServiceSalary(rps, rpe)

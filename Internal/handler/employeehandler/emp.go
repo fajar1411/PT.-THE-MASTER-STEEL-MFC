@@ -8,6 +8,7 @@ import (
 	"master/domain/query"
 	"master/domain/request"
 	"master/helper"
+	"master/middlewares"
 	"master/redist"
 	"net/http"
 
@@ -57,4 +58,22 @@ func (he *Handleremployee) AddEmployee(e echo.Context) error {
 	respondata := query.ReqemployetoRespon(data)
 
 	return e.JSON(http.StatusCreated, helper.GetResponse(respondata, http.StatusCreated, false, "success register"))
+}
+
+func (he *Handleremployee) GetSalary(e echo.Context) error {
+	id := middlewares.ExtractTokenId(e)
+	role := middlewares.ExtractTokenRole(e)
+
+	if role == "" {
+		return e.JSON(http.StatusUnauthorized, helper.GetResponse(nil, http.StatusUnauthorized, true, "anda bukan admin maupun pegawai kami"))
+	}
+
+	dataservice, errservice := he.se.GetSalary(id)
+
+	if errservice != nil {
+		return e.JSON(http.StatusInternalServerError, helper.GetResponse(nil, http.StatusInternalServerError, true, errservice.Error()))
+	}
+	respon := query.ReqsalarytoRespon(dataservice)
+
+	return e.JSON(http.StatusOK, helper.GetResponse(respon, http.StatusOK, false, "success liat salary anda"))
 }

@@ -99,7 +99,7 @@ func RequesempToModel(data request.RequestEmployee) model.Employee {
 }
 func ReqsalarytoRespon(data request.RequestSalary) respon.ResponSalary {
 	return respon.ResponSalary{
-		Id:         data.Id,
+
 		Gaji:       data.Gaji,
 		IDEmployee: data.IDEmployee,
 		Total_Gaji: data.Total_Gaji,

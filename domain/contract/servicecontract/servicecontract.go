@@ -15,6 +15,7 @@ type ServiceLogin interface {
 }
 type ServiceEmployee interface {
 	AddEmployee(newRequest request.RequestEmployee) (data request.RequestEmployee, err error)
+	GetSalary(id int) (data request.RequestSalary, err error)
 }
 type ServiceSalary interface {
 	AddSalary(nip string, newRequest request.RequestSalary) (data request.RequestSalary, err error)

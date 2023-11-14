@@ -16,6 +16,7 @@ type RepoLogin interface {
 type RepoEmployee interface {
 	AddEmployee(newRequest request.RequestEmployee) (data request.RequestEmployee, err error)
 	EmailExist(email string) (data request.RequestEmployee, err error)
+	GetSalary(id int) (data request.RequestSalary, err error)
 	NipExist(nip string) (data request.RequestEmployee, err error)
 }
 type RepoSalary interface {
