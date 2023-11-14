@@ -22,7 +22,6 @@ type ResponEmployee struct {
 	Division string `json:"division"`
 }
 type ResponSalary struct {
-	Id         int     `json:"id"`
 	Gaji       float64 `json:"gaji"`
 	IDEmployee uint    `json:"id_emp"`
 	Total_Gaji int     `json:"total_gaji"`
